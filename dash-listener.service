@@ -1,0 +1,11 @@
+[Unit]
+Description=Listener for Amazon Dash buttons
+
+[Service]
+ExecStart=/home/pi/projects/dash-listener/dash-listener
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

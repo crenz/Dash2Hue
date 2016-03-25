@@ -1,0 +1,7 @@
+{
+  "Buttons": {
+    "01:23:45:67:89:ab": "Hefty",
+    "01:23:45:67:89:cd": "Glad"
+  },
+  "URL": "http://localhost:1880/dash-button"
+}

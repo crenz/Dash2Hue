@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var dash_button = require('node-dash-button');
+var request = require('request');
+
+var settings = require('./dash-listener-settings.json')
+
+var dash = dash_button(Object.keys(settings.Buttons));
+
+console.log("Listening for dash buttons ");
+for (var mac in settings.Buttons) {
+    console.log('- ' + settings.Buttons[mac] + ': ' + mac)
+}
+console.log('Events will be posted to ' + settings.URL);
+console.log('');
+
+dash.on("detected", function (dash_id){
+    if (settings.Buttons[dash_id]) {
+        console.log("[" + (new Date).toString() + "] Button '" + settings.Buttons[dash_id] + " 'detected" )
+        request.post({
+            url: settings.URL,
+            form:    { button: settings.Buttons[dash_id] }
+        }, function(error, response, body){
+            console.log("[" + (new Date).toString() + "] " + response.statusCode + ": " + body);
+        })
+    }
+});
